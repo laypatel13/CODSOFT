@@ -40,3 +40,8 @@ def plot_data(df):
     plt.savefig("heatmap.png")
     plt.close()
     print("Heatmap saved as heatmap.png")
+
+if __name__ == "__main__":
+    df = load_data("IRIS.csv")
+    explore_data(df)
+    plot_data(df)
