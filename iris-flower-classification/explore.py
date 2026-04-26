@@ -24,3 +24,19 @@ def explore_data(df):
 
     print("\n=== Basic Statistics ===")
     print(df.describe())
+
+def plot_data(df):
+    # Pairplot
+    sns.pairplot(df, hue="species")
+    plt.suptitle("Iris Pairplot", y=1.02)
+    plt.savefig("pairplot.png")
+    plt.close()
+    print("\nPairplot saved as pairplot.png")
+
+    # Correlation heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(df.drop(columns="species").corr(), annot=True, cmap="coolwarm")
+    plt.title("Feature Correlation Heatmap")
+    plt.savefig("heatmap.png")
+    plt.close()
+    print("Heatmap saved as heatmap.png")
