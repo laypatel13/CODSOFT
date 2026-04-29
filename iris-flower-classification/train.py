@@ -23,3 +23,26 @@ def train_model(X_train, y_train):
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
     return model
+
+def evaluate_model(model, X_test, y_test, le):
+    y_pred = model.predict(X_test)
+
+    print("=== Accuracy ===")
+    print(f"{accuracy_score(y_test, y_pred) * 100:.2f}%")
+
+    print("\n=== Classification Report ===")
+    print(classification_report(y_test, y_pred, target_names=le.classes_))
+
+    print("\n=== Confusion Matrix ===")
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
+                xticklabels=le.classes_, yticklabels=le.classes_)
+    plt.title("Confusion Matrix")
+    plt.ylabel("Actual")
+    plt.xlabel("Predicted")
+    plt.savefig("confusion_matrix.png")
+    plt.close()
+    print("Confusion matrix saved as confusion_matrix.png")
+
+    return y_pred
