@@ -46,3 +46,20 @@ def evaluate_model(model, X_test, y_test, le):
     print("Confusion matrix saved as confusion_matrix.png")
 
     return y_pred
+
+def run_training(filepath="IRIS.csv"):
+    df = load_data(filepath)
+    X, y, le = preprocess(df)
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    model = train_model(X_train, y_train)
+    evaluate_model(model, X_test, y_test, le)
+
+    return model, le
+
+
+if __name__ == "__main__":
+    run_training()
